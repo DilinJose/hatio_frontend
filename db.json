@@ -1,0 +1,24 @@
+{
+    "projects": [
+        {
+            "id": "1",
+            "title": "a title",
+            "createdAt": "10",
+            "todos": []
+        },
+        {
+            "id": "2",
+            "title": "another title",
+            "createdAt": "10",
+            "todos": [
+                {
+                    "uid": "12",
+                    "description": "description",
+                    "status": true,
+                    "createdAt": "12",
+                    "updatedAt": "13"
+                }
+            ]
+        }
+    ]
+}
