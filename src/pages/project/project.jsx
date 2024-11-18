@@ -5,6 +5,7 @@ import Body from '../../components/body/body'
 import { router } from '../../constants'
 import { createTodos, deleteTodos, getProject, updateProject, updateTodos } from '../../redux/action/projectAction'
 import { createSecretGist, generateMarkdown, saveToLocalFile } from '../../utils/gistSummery'
+import { FaSpinner } from "react-icons/fa";
 
 const Project = () => {
   const { id } = useParams()
@@ -16,18 +17,10 @@ const Project = () => {
   const [editedTitle, setEditedTitle] = useState('')
   const [editedTodo, setEditedTodo] = useState('')
   const [currentEditingId, setCurrentEditingId] = useState(null)
-  const [loading, setLoading] = useState(false)
   const [gistUrl, setGistUrl] = useState('');
   const token = import.meta.env.VITE_GIT_TOKEN
 
-  const { project } = useSelector((state) => state.projects)
-
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(true)
-    }, 2000)
-  }, [])
+  const { project, loading } = useSelector((state) => state.projects)
 
   useEffect(() => {
     if (id) {
@@ -98,10 +91,8 @@ const Project = () => {
   return (
     <Body>
       {
-        loading ?
+        !loading ?
           <div className="max-w-4xl mx-auto w-full space-y-8 p-4">
-            {/* Back Button */}
-
             <div className='flex justify-between items-center'>
               <button
                 onClick={() => navigate(router.Dashboard)}
@@ -124,16 +115,6 @@ const Project = () => {
               </button>
 
             </div>
-            {/* <button
-          onClick={() => navigate(router.Dashboard)}
-          className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-black border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-          </svg>
-          Back
-        </button> */}
-
             {/* Main Content */}
             <div className="bg-white rounded-lg shadow-md">
               {/* Project Title */}
@@ -275,11 +256,8 @@ const Project = () => {
               </p>
             )}
           </div> :
-          <div className='h-full flex justify-center items-center'>
-            <svg xmlns="http://www.w3.org/2000/svg" className="animate-spin text-amber-500 text-4xl" viewBox="0 0 50 50" width="50" height="50">
-              <circle cx="25" cy="25" r="20" fill="none" stroke="#3498db" strokeWidth="4" strokeLinecap="round">
-              </circle>
-            </svg>
+          <div className="flex justify-center items-center ">
+            <FaSpinner className="animate-spin text-grey-900 text-4xl" />
           </div>
       }
     </Body>

@@ -1,11 +1,12 @@
 import axios from "axios";
 import { deleteData, getData, postData, updateData } from "../../api/services"
-import { setProject, setProjects } from "../slice/projectSlice"
+import { setProject, setProjects, startLoading } from "../slice/projectSlice"
 import { router } from "../../constants";
 import { getUser } from "../../utils/getUser/getUser";
 
 
 export const getProjects = (id) => async (dispatch) => {
+    dispatch(startLoading());
     try {
         const response = await getData(`/projects`)
         dispatch(setProjects(response.data))
@@ -14,6 +15,7 @@ export const getProjects = (id) => async (dispatch) => {
     }
 }
 export const getProject = (id) => async (dispatch) => {
+    dispatch(startLoading());
     try {
         const response = await getData(`/projects/${id}`)
         dispatch(setProject(response.data))
