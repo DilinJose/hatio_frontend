@@ -12,7 +12,6 @@ const Dashboard = () => {
   const projects = useSelector((state) => state.projects.projects)
   const { currentUser } = useContext(AuthContext)
 
-  // console.log('projects :>> ', projects);
   useEffect(() => {
     dispatch(getProjects(currentUser?.uid))
   }, [])
